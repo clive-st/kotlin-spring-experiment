@@ -1,6 +1,8 @@
 package com.github.clives.delivery.config
 
 
+import com.github.clives.dataproviders.db.jpa.repositories.DBMovieInTheaterRepository
+import com.github.clives.dataproviders.db.jpa.repositories.JpaMovieInTheaterRepository
 import com.github.clives.dataproviders.db.jpa.repositories.DBShowTimesRepository
 import com.github.clives.dataproviders.db.jpa.repositories.JpaShowTimesRepository
 import com.github.clives.core.entities.ShowTimes
@@ -32,4 +34,7 @@ class Module {
 
     @Bean
     fun showTimesRepository(dbShowTimesRepository: DBShowTimesRepository) = JpaShowTimesRepository(dbShowTimesRepository)
+
+    @Bean
+    fun movieInTheaterRepository(dbMovieInTheaterRepository: DBMovieInTheaterRepository) = JpaMovieInTheaterRepository(dbMovieInTheaterRepository)
 }

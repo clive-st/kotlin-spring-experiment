@@ -15,6 +15,7 @@ data class ShowTimes(
 data class Imdb(val value: String) {
     companion object {
         operator fun invoke(imdb: String): Imdb {
+            //todo validation regexp,...
             return Imdb(imdb)
         }
     }

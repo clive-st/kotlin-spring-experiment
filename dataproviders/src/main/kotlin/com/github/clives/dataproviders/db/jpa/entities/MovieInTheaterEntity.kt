@@ -18,21 +18,6 @@ data class MovieInTheaterEntity(
         val showTimes: List<ShowTimesEntity>
 )
 
-@Entity
-@Table(name = "show_time")
-data class ShowTimesEntity(
-        @Id
-        val imdbId: String,
-
-        val day: Int,
-
-        val hour: Int,
-
-        val minute: Int,
-
-        val price: Long
-)
-
 
 // Mappers
 fun MovieInTheaterEntity.toMovie() =
@@ -45,22 +30,4 @@ fun MovieInTheater.toMovieInTheaterEntity() =
         MovieInTheaterEntity(
                 imdbId = this.imdbId.value,
                 showTimes = emptyList()
-        )
-
-// Mappers
-fun ShowTimesEntity.toShowTimes() =
-        ShowTimes(
-                day = 1,
-                hour = 1,
-                minute = 2,
-                price = 3
-        )
-
-fun ShowTimes.toShowTimesEntity(imdb:String) =
-        ShowTimesEntity(
-                imdbId=imdb,
-                day = 1,
-                hour = 1,
-                minute = 2,
-                price = 3
         )
