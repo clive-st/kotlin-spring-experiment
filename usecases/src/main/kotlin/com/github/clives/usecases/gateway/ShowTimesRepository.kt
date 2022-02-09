@@ -1,0 +1,5 @@
+package com.github.clives.usecases.gateway
+
+import com.github.clives.usecases.showtimes.FetchShowTimesMovieInTheaterUseCases
+
+interface ShowTimesRepository : FetchShowTimesMovieInTheaterUseCases.ShowTimesRepository
