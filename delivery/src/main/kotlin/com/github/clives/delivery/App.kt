@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 @SpringBootApplication(scanBasePackages = [
     "com.github.clives.delivery.config",
     "com.github.clives.dataproviders.db.jpa.config",
+    "com.github.clives.dataproviders.restclient",
     "com.github.clives.delivery.rest.imp"
 ])
 class App
