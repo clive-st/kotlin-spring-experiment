@@ -2,6 +2,7 @@ package com.github.clives.core.entities
 
 data class MovieInTheater(
         val imdbId: Imdb,
+        val title: String,
         val showTimes: List<ShowTimes>
 )
 

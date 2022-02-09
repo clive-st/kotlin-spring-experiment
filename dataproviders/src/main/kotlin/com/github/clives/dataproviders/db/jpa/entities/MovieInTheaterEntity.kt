@@ -14,8 +14,9 @@ data class MovieInTheaterEntity(
         @Id
         val imdbId: String,
 
-        @OneToMany//(cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
-        val showTimes: List<ShowTimesEntity>
+        val title: String
+     //   @OneToMany//(cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+     //   val showTimes: List<ShowTimesEntity>
 )
 
 
@@ -23,11 +24,13 @@ data class MovieInTheaterEntity(
 fun MovieInTheaterEntity.toMovie() =
         MovieInTheater(
                 imdbId = Imdb(this.imdbId),
-                showTimes = emptyList()
+                showTimes = emptyList(),
+                title = title
         )
 
 fun MovieInTheater.toMovieInTheaterEntity() =
         MovieInTheaterEntity(
                 imdbId = this.imdbId.value,
-                showTimes = emptyList()
+                title = this.title
+             //   showTimes = emptyList()
         )

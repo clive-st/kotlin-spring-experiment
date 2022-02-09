@@ -8,7 +8,7 @@ data class ShowTimesDto(
         val price: Long
 )
 
-fun ShowTimes.toMovieDto() =
+fun ShowTimes.toShowTimesDto() =
         ShowTimesDto(
                 showTimes = "test",
                 price = 666
