@@ -1,6 +1,5 @@
 package com.github.clives.dataproviders.db.jpa.repositories
 
-import com.github.clives.dataproviders.db.jpa.repositories.DBShowTimesRepository
 import com.github.clives.core.entities.ShowTimes
 import com.github.clives.dataproviders.db.jpa.entities.ShowTimesEntity
 import com.github.clives.dataproviders.db.jpa.entities.toShowTimes

@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 
 @ExtendWith(SpringExtension::class)
 @RunWith(SpringJUnit4ClassRunner::class)
-@SpringBootTest(classes = [App::class],  webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(classes = [App::class], webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class AppTest {
     @Autowired
     lateinit var restTemplate: TestRestTemplate
@@ -32,6 +32,6 @@ class AppTest {
         println(result.body)
         assertNotNull(result)
         assertEquals(HttpStatus.OK, result?.statusCode)
-        assertEquals(result.body.imdbID,"tt0232500" )
+        assertEquals(result.body.imdbID, "tt0232500")
     }
 }

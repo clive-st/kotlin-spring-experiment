@@ -1,7 +1,6 @@
 package com.github.clives.delivery.config
 
 
-import com.github.clives.core.entities.MovieReviewRating
 import com.github.clives.dataproviders.db.jpa.repositories.*
 import com.github.clives.dataproviders.restclient.repositories.RestTemplateMovieDetailsRepository
 import com.github.clives.delivery.rest.api.imp.MovieInTheaterDetailsResourceImp
@@ -16,22 +15,16 @@ import com.github.clives.usecases.gateway.ShowTimesRepository
 import com.github.clives.usecases.movieInTheater.GetMovieInTheaterDetailsUseCases
 import com.github.clives.usecases.showtimes.FetchShowTimesMovieInTheaterUseCases
 import com.github.clives.usecases.userreview.AddReviewMovieInTheaterUseCases
+import okhttp3.ConnectionPool
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import org.springframework.boot.web.client.RestTemplateBuilder
+import okhttp3.Response
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Description
-import org.springframework.http.MediaType
-import org.springframework.http.client.ClientHttpRequestInterceptor
-import org.springframework.web.client.DefaultResponseErrorHandler
+import org.springframework.http.client.OkHttp3ClientHttpRequestFactory
 import org.springframework.web.client.RestTemplate
 import java.util.concurrent.TimeUnit
-import okhttp3.ConnectionPool;
-import okhttp3.Interceptor
-import okhttp3.Response
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.http.client.OkHttp3ClientHttpRequestFactory;
 
 @Configuration
 class Module {
@@ -63,7 +56,7 @@ class Module {
 
     @Bean
     fun getMovieInTheaterDetailsUseCases(movieDetailsRepository: MovieDetailsRepository,
-                                         movieInTheaterRepository: MovieInTheaterRepository) = GetMovieInTheaterDetailsUseCases(movieInTheaterRepository,movieDetailsRepository)
+                                         movieInTheaterRepository: MovieInTheaterRepository) = GetMovieInTheaterDetailsUseCases(movieInTheaterRepository, movieDetailsRepository)
 
     @Bean
     fun insertUserReview(reviewRepository: ReviewRepository) = AddReviewMovieInTheaterUseCases(reviewRepository)
@@ -105,14 +98,14 @@ class Module {
         val HTTP_KEEP_ALIVE = 20L
         val HTTP_CONNECTION_TIMEOUT = 30L
 
-        val builder =  OkHttpClient.Builder();
+        val builder = OkHttpClient.Builder();
         val okHttpConnectionPool = ConnectionPool(HTTP_MAX_IDLE, HTTP_KEEP_ALIVE,
                 TimeUnit.SECONDS);
         builder.connectionPool(okHttpConnectionPool);
         builder.connectTimeout(HTTP_CONNECTION_TIMEOUT, TimeUnit.SECONDS);
         builder.retryOnConnectionFailure(false);
 
-        class ApiKeyInterceptor(private val apiKey: String): Interceptor {
+        class ApiKeyInterceptor(private val apiKey: String) : Interceptor {
             override fun intercept(chain: Interceptor.Chain): Response {
                 return chain.proceed(
                         with(chain.request()) {
@@ -128,7 +121,7 @@ class Module {
 
         builder.addInterceptor(ApiKeyInterceptor("e4f33820"))
 
-        restTemplate.setRequestFactory( OkHttp3ClientHttpRequestFactory(builder.build()));
+        restTemplate.setRequestFactory(OkHttp3ClientHttpRequestFactory(builder.build()));
 
         return restTemplate;
     }

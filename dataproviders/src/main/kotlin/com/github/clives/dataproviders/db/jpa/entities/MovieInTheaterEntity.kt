@@ -2,8 +2,6 @@ package com.github.clives.dataproviders.db.jpa.entities
 
 import com.github.clives.core.entities.Imdb
 import com.github.clives.core.entities.MovieInTheater
-import com.github.clives.core.entities.MovieReviewRating
-import com.github.clives.core.entities.ShowTimes
 import javax.persistence.*
 
 @Entity
@@ -15,9 +13,11 @@ data class MovieInTheaterEntity(
         val title: String,
 
         @OneToMany(cascade = [(CascadeType.ALL)], fetch = FetchType.EAGER, mappedBy = "imdbId")
-        //@JoinColumn(name="id")
-        val reviews: Collection<MovieReviewRatingEntity>
-        )
+        val reviews: Collection<MovieReviewEntity>,
+
+        @OneToMany(cascade = [(CascadeType.ALL)], fetch = FetchType.LAZY, mappedBy = "imdbId")
+        val showTimes: Collection<ShowTimesEntity>
+)
 
 
 // Mappers
@@ -26,13 +26,5 @@ fun MovieInTheaterEntity.toMovie() =
                 imdbId = Imdb(this.imdbId),
                 showTimes = emptyList(),
                 title = title,
-                reviewRating = reviews.map( MovieReviewRatingEntity::toMovieReviewRating)
+                reviewRating = reviews.map(MovieReviewEntity::toMovieReviewRating)
         )
-
-/*
-fun MovieInTheater.toMovieInTheaterEntity() =
-        MovieInTheaterEntity(
-                imdbId = this.imdbId.value,
-                title = this.title
-             //   showTimes = emptyList()
-        )*/

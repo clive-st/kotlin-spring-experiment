@@ -16,10 +16,10 @@ open class RestTemplateMovieDetailsRepository(private val restTemplate: RestTemp
     private val baseURL: String? = null
 
     override fun get(imdb: String): Movie? {
-        val movieDetailsImdb =  try {
+        val movieDetailsImdb = try {
             restTemplate.getForObject("$baseURL?i=$imdb", MovieDetailsImdb::class.java)
-        }catch (e: RestClientException){
-            throw MovieDetailsAccessException(e.message?:"general access error")
+        } catch (e: RestClientException) {
+            throw MovieDetailsAccessException(e.message ?: "general access error")
         }
         return movieDetailsImdb.toMovie()
     }

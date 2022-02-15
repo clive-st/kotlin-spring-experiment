@@ -2,8 +2,8 @@ package com.github.clives.delivery.rest.api
 
 
 data class ErrorDto(
-    val errorCode: ErrorCodeDto?,
-    val message: String?
+        val errorCode: ErrorCodeDto?,
+        val message: String?
 )
 
 enum class ErrorCodeDto {

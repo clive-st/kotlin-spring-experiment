@@ -2,14 +2,11 @@ package com.github.clives.dataproviders.db.jpa.entities
 
 import com.github.clives.core.entities.Day
 import com.github.clives.core.entities.ShowTimes
-import javax.persistence.Entity
-import javax.persistence.Id
-import javax.persistence.Table
+import javax.persistence.*
 
 @Entity
 @Table(name = "show_time")
 data class ShowTimesEntity(
-        @Id
         val imdbId: String,
 
         val day: Int,
@@ -18,23 +15,26 @@ data class ShowTimesEntity(
 
         val minute: Int,
 
-        val price: Long
+        val price: Long,
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        val id: Long = 0
 )
 
 // Mappers
 fun ShowTimesEntity.toShowTimes() =
         ShowTimes(
-                day = Day.valueOf(day)!! ,
-                hour = 1,
-                minute = 2,
-                price = 3
+                day = Day.valueOf(day)!!,
+                hour = hour,
+                minute = minute,
+                price = price
         )
 
-fun ShowTimes.toShowTimesEntity(imdb:String) =
+fun ShowTimes.toShowTimesEntity(imdb: String) =
         ShowTimesEntity(
-                imdbId=imdb,
-                day = 1,
-                hour = 1,
-                minute = 2,
-                price = 3
+                imdbId = imdb,
+                day = day.value,
+                hour = hour,
+                minute = minute,
+                price = price
         )

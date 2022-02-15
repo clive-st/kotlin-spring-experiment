@@ -1,6 +1,8 @@
 package com.github.clives.delivery.rest.api
 
-import com.github.clives.core.entities.*
+import com.github.clives.core.entities.Imdb
+import com.github.clives.core.entities.MovieReviewRating
+import com.github.clives.core.entities.Rating
 
 
 data class MovieReviewDto(
@@ -11,7 +13,7 @@ data class MovieReviewDto(
 
 fun MovieReviewRating.toMovieReviewDto() =
         MovieReviewDto(
-                imdbID=this.imdb.value,
+                imdbID = this.imdb.value,
                 star = this.rating.star,
                 userName = this.userName
         )

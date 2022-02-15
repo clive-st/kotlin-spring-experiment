@@ -2,7 +2,6 @@ package com.github.clives.delivery.rest.api
 
 import com.github.clives.core.entities.Movie
 import com.github.clives.core.entities.MovieReviewRating
-import com.github.clives.core.entities.ShowTimes
 
 
 data class MovieInTheaterDetailsDto(

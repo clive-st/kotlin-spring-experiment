@@ -11,12 +11,11 @@ import java.util.concurrent.TimeUnit
 class okhttpClient(val keyInterceptor: ApiKeyInterceptor) {
 
 
-
     val HTTP_MAX_IDLE = 20
     val HTTP_KEEP_ALIVE = 20L
     val HTTP_CONNECTION_TIMEOUT = 30L
 
-    val builder =  OkHttpClient.Builder();
+    val builder = OkHttpClient.Builder();
     val okHttpConnectionPool = ConnectionPool(HTTP_MAX_IDLE, HTTP_KEEP_ALIVE,
             TimeUnit.SECONDS);
 
@@ -40,7 +39,7 @@ class okhttpClient(val keyInterceptor: ApiKeyInterceptor) {
             }
         }
         builder.addInterceptor(ApiKeyInterceptor())
-        restTemplate.setRequestFactory( OkHttp3ClientHttpRequestFactory(builder.build()));
+        restTemplate.setRequestFactory(OkHttp3ClientHttpRequestFactory(builder.build()));
         return restTemplate;
     }
 }

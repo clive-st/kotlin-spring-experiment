@@ -10,7 +10,7 @@ data class MovieInTheater(
 data class ShowTimes(
         val day: Day,
         val hour: Int,
-        val minute:  Int,
+        val minute: Int,
         val price: Long
 )
 

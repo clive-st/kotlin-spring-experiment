@@ -1,9 +1,8 @@
 package com.github.clives.delivery.rest.api
 
-import com.github.clives.core.entities.MovieInTheater
-import com.github.clives.core.entities.MovieReviewRating
-import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
 import java.util.concurrent.CompletionStage
 
 
@@ -12,6 +11,6 @@ import java.util.concurrent.CompletionStage
 interface MovieReviewResource {
 
     @PostMapping
-    fun insertMovieReview( movieReviewDto: MovieReviewDto): CompletionStage<MovieReviewDto>
+    fun insertMovieReview(movieReviewDto: MovieReviewDto): CompletionStage<MovieReviewDto>
 
 }

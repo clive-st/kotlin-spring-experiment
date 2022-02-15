@@ -17,13 +17,13 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
     @ExceptionHandler(NotFoundException::class)
     fun notFound(ex: NotFoundException) =
-        ResponseEntity(ErrorDto(ErrorCodeDto.NOT_FOUND, ex.message), HttpStatus.NOT_FOUND)
+            ResponseEntity(ErrorDto(ErrorCodeDto.NOT_FOUND, ex.message), HttpStatus.NOT_FOUND)
 
     @ExceptionHandler(ValidationException::class)
     fun alreadyExists(ex: ValidationException) =
-        ResponseEntity(ErrorDto(ErrorCodeDto.VALIDATION_ERROR, ex.message), HttpStatus.BAD_REQUEST)
+            ResponseEntity(ErrorDto(ErrorCodeDto.VALIDATION_ERROR, ex.message), HttpStatus.BAD_REQUEST)
 
     @ExceptionHandler(MovieDetailsAccessException::class)
     fun alreadyExists(ex: MovieDetailsAccessException) =
-        ResponseEntity(ErrorDto(ErrorCodeDto.VALIDATION_ERROR, ex.message), HttpStatus.BAD_REQUEST)
+            ResponseEntity(ErrorDto(ErrorCodeDto.VALIDATION_ERROR, ex.message), HttpStatus.BAD_REQUEST)
 }

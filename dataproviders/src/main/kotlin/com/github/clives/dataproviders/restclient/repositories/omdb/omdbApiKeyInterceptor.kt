@@ -5,7 +5,7 @@ import okhttp3.Response
 import org.springframework.beans.factory.annotation.Value
 
 
-class ApiKeyInterceptor(): Interceptor {
+class ApiKeyInterceptor() : Interceptor {
 
     @Value("\${OMDb.apikeyl}")
     private val apikey: String? = null
