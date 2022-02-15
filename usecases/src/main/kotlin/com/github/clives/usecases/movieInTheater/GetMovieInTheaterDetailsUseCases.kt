@@ -15,8 +15,8 @@ class GetMovieInTheaterDetailsUseCases(private val movieRepository: MovieInTheat
     override fun execute(imdbID: Imdb) =
             movieRepository.get(imdbID.value)?.let {
                 service ->
-                println(service.reviewRating)
-                movieDetailsRepository.get(imdbID.value)?: throw NotFoundException("No movie details for imdb: $imdbID")
+                val externMovie=movieDetailsRepository.get(imdbID.value)?:(throw NotFoundException("No movie details for imdb: $imdbID"))
+                externMovie.copy(reviews = service.reviewRating)
             }?: throw NotFoundException("No theater movie for imdb: $imdbID")
 
     interface MovieInTheaterRepository {
