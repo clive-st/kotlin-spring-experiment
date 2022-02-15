@@ -1,9 +1,6 @@
 package com.github.clives.dataproviders.db.jpa.entities
 
-import com.github.clives.core.entities.Day
-import com.github.clives.core.entities.MovieReviewRating
-import com.github.clives.core.entities.Rating
-import com.github.clives.core.entities.ShowTimes
+import com.github.clives.core.entities.*
 import javax.persistence.*
 
 @Entity
@@ -13,7 +10,7 @@ data class MovieReviewRatingEntity(
         val rating: Int,
         val userName: String,
         @Id
-        @GeneratedValue(strategy = GenerationType.AUTO)
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         val id: Long = 0
 )
 
@@ -21,12 +18,13 @@ data class MovieReviewRatingEntity(
 fun MovieReviewRatingEntity.toMovieReviewRating() =
         MovieReviewRating(
                 rating = Rating(rating),
-                userName= userName
+                userName= userName,
+                imdb = Imdb(imdbId)
         )
 
-fun MovieReviewRating.toMovieReviewRatingEntity(imdb:String) =
+fun MovieReviewRating.toMovieReviewRatingEntity() =
         MovieReviewRatingEntity(
-                imdbId = imdb,
-                rating = rating.nbrStarval,
+                imdbId = imdb.value,
+                rating = rating.star,
                 userName= userName
         )

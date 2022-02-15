@@ -14,8 +14,8 @@ import com.github.clives.usecases.gateway.ShowTimesRepository
 open class JpaReviewRepository(private val dbReviewRepository: DBReviewRepository) :
         ReviewRepository {
 
-    override fun insertReview(imdb: String, review: MovieReviewRating): MovieReviewRating =
-            dbReviewRepository.save(review.toMovieReviewRatingEntity(imdb)).toMovieReviewRating()
+    override fun insertReview(review: MovieReviewRating): MovieReviewRating =
+            dbReviewRepository.save(review.toMovieReviewRatingEntity()).toMovieReviewRating()
 
 
 }
