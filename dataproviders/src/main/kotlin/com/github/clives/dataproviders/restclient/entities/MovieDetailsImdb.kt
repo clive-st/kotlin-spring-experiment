@@ -13,5 +13,6 @@ data class MovieDetailsImdb(
 fun MovieDetailsImdb.toMovie() =
         Movie(
                 imdbID = Imdb(this.imdbID),
-                title = this.Title
+                title = this.Title,
+                reviews = emptyList()
         )

@@ -1,10 +1,7 @@
 package com.github.clives.delivery.config
 
 
-import com.github.clives.dataproviders.db.jpa.repositories.DBMovieInTheaterRepository
-import com.github.clives.dataproviders.db.jpa.repositories.DBShowTimesRepository
-import com.github.clives.dataproviders.db.jpa.repositories.JpaMovieInTheaterRepository
-import com.github.clives.dataproviders.db.jpa.repositories.JpaShowTimesRepository
+import com.github.clives.dataproviders.db.jpa.repositories.*
 import com.github.clives.dataproviders.restclient.repositories.RestTemplateMovieDetailsRepository
 import com.github.clives.delivery.rest.api.imp.MovieInTheaterDetailsResourceImp
 import com.github.clives.delivery.rest.api.imp.ShowTimesResourceImp
@@ -66,6 +63,9 @@ class Module {
     fun showTimesRepository(dbShowTimesRepository: DBShowTimesRepository) = JpaShowTimesRepository(dbShowTimesRepository)
 
     @Bean
+    fun ReviewRepository(dbReviewRepository: DBReviewRepository) = JpaReviewRepository(dbReviewRepository)
+
+    @Bean
     fun movieInTheaterRepository(dbMovieInTheaterRepository: DBMovieInTheaterRepository) = JpaMovieInTheaterRepository(dbMovieInTheaterRepository)
 
     @Bean
@@ -117,7 +117,7 @@ class Module {
             }
         }
 
-        builder.addInterceptor(ApiKeyInterceptor(""))
+        builder.addInterceptor(ApiKeyInterceptor("e4f33820"))
 
         restTemplate.setRequestFactory( OkHttp3ClientHttpRequestFactory(builder.build()));
 

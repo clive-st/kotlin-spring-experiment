@@ -13,13 +13,15 @@ class GetMovieInTheaterDetailsUseCases(private val movieRepository: MovieInTheat
         UseCase<Imdb, Movie> {
 
     override fun execute(imdbID: Imdb) =
-            movieRepository.exist(imdbID.value)?.takeIf { it }?.let {
+            movieRepository.get(imdbID.value)?.let {
                 service ->
+                println(service.reviewRating)
                 movieDetailsRepository.get(imdbID.value)?: throw NotFoundException("No movie details for imdb: $imdbID")
             }?: throw NotFoundException("No theater movie for imdb: $imdbID")
 
     interface MovieInTheaterRepository {
         fun exist(imdb: String): Boolean
+        fun get(imdb: String): MovieInTheater?
     }
 
     interface MovieDetailsRepository {

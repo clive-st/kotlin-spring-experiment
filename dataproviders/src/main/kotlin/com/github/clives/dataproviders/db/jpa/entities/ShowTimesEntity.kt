@@ -1,5 +1,6 @@
 package com.github.clives.dataproviders.db.jpa.entities
 
+import com.github.clives.core.entities.Day
 import com.github.clives.core.entities.ShowTimes
 import javax.persistence.Entity
 import javax.persistence.Id
@@ -23,7 +24,7 @@ data class ShowTimesEntity(
 // Mappers
 fun ShowTimesEntity.toShowTimes() =
         ShowTimes(
-                day = 1,
+                day = Day.valueOf(day)!! ,
                 hour = 1,
                 minute = 2,
                 price = 3

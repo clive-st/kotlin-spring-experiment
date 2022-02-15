@@ -10,6 +10,6 @@ data class ShowTimesDto(
 
 fun ShowTimes.toShowTimesDto() =
         ShowTimesDto(
-                showTimes = "test",
-                price = 666
+                showTimes = "Day:${day.name.toLowerCase()} hour:$hour::$minute",
+                price = price
         )
