@@ -1,5 +1,11 @@
 # Challenge Movie Theater
 
+## Command
+
+`./mvnw install -Dmaven.test.skip && ./mvnw spring-boot:run -pl delivery`
+
+(tested with java 8.0.272-amzn)
+
 ## Tech Stack
 
 Kotlin using clean architecture,as it's my first project in Kotlin and my first attempt to implement the clean architectue I used this project as a starting point: (based on:  https://github.com/thecodegang/clean-architecture-example).
