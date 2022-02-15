@@ -1,17 +1,21 @@
 package com.github.clives.delivery.config
 
 
+import com.github.clives.core.entities.MovieReviewRating
 import com.github.clives.dataproviders.db.jpa.repositories.*
 import com.github.clives.dataproviders.restclient.repositories.RestTemplateMovieDetailsRepository
 import com.github.clives.delivery.rest.api.imp.MovieInTheaterDetailsResourceImp
+import com.github.clives.delivery.rest.api.imp.MovieReviewResourceImp
 import com.github.clives.delivery.rest.api.imp.ShowTimesResourceImp
 import com.github.clives.usecases.UseCaseExecutor
 import com.github.clives.usecases.UseCaseExecutorImp
 import com.github.clives.usecases.gateway.MovieDetailsRepository
 import com.github.clives.usecases.gateway.MovieInTheaterRepository
+import com.github.clives.usecases.gateway.ReviewRepository
 import com.github.clives.usecases.gateway.ShowTimesRepository
 import com.github.clives.usecases.movieInTheater.GetMovieInTheaterDetailsUseCases
 import com.github.clives.usecases.showtimes.FetchShowTimesMovieInTheaterUseCases
+import com.github.clives.usecases.userreview.AddReviewMovieInTheaterUseCases
 import okhttp3.OkHttpClient
 import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.context.annotation.Bean
@@ -45,6 +49,11 @@ class Module {
             getMovieInTheaterDetailsUseCases: GetMovieInTheaterDetailsUseCases
     ) = MovieInTheaterDetailsResourceImp(useCaseExecutor, getMovieInTheaterDetailsUseCases)
 
+    @Bean
+    fun movieReviewResourceImp(
+            useCaseExecutor: UseCaseExecutor,
+            addReviewMovieInTheaterUseCases: AddReviewMovieInTheaterUseCases
+    ) = MovieReviewResourceImp(useCaseExecutor, addReviewMovieInTheaterUseCases)
 
     @Bean
     fun useCaseExecutor() = UseCaseExecutorImp()
@@ -56,8 +65,8 @@ class Module {
     fun getMovieInTheaterDetailsUseCases(movieDetailsRepository: MovieDetailsRepository,
                                          movieInTheaterRepository: MovieInTheaterRepository) = GetMovieInTheaterDetailsUseCases(movieInTheaterRepository,movieDetailsRepository)
 
-  //  @Bean
-  //  fun createProductUseCase(productRepository: ProductRepository) = CreateProductUseCase(productRepository)
+    @Bean
+    fun insertUserReview(reviewRepository: ReviewRepository) = AddReviewMovieInTheaterUseCases(reviewRepository)
 
     @Bean
     fun showTimesRepository(dbShowTimesRepository: DBShowTimesRepository) = JpaShowTimesRepository(dbShowTimesRepository)

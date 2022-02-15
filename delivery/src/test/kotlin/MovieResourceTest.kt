@@ -40,66 +40,35 @@ import org.springframework.test.context.junit4.SpringRunner
 import org.springframework.test.web.servlet.ResultActions
 import java.util.concurrent.CompletableFuture
 
-
-/*  classes = [MovieReviewResource::class, MovieReviewResourceImp::class,
-AddReviewMovieInTheaterUseCases::class, UseCaseExecutorImp::class, JpaReviewRepository::class, DBReviewRepository::class])*/
 @ExtendWith(SpringExtension::class)
 @RunWith(SpringJUnit4ClassRunner::class)
-//@EntityScan(basePackages = ["com.github.clives.dataproviders.db.jpa.entities"])
-//@Import(com.github.clives.delivery.config.Module::class)
-//@EnableJpaRepositories(basePackages = ["com.github.clives.dataproviders.db.jpa.repositories"])
-/*@SpringBootApplication(scanBasePackages = [
-    "com.github.clives.delivery.config",
-    "com.github.clives.dataproviders.db.jpa.config",
-    "com.github.clives.delivery.rest.api.imp",
-    "com.github.clives.dataproviders.restclient",
-    "com.github.clives.delivery.rest.imp"
-])
-@TestPropertySource("classpath:test-application.properties")*/
 @SpringBootTest(classes = [MovieInTheaterDetailsResource::class])
         class MovieResourceTest {
 
     @Autowired lateinit var webApplicationContext: WebApplicationContext
 
     lateinit var mockMvc: MockMvc
-/*
-    @TestConstructor(autowireMode =  TestConstructor.AutowireMode.ALL)
-    internal class LancamentoControllerTest(
-            val mockMvc: MockMvc
-    ){
-*/
 
     @Before
     fun init() {
         mockMvc = MockMvcBuilders
                 .webAppContextSetup(webApplicationContext)
                 .build()
-
     }
 
     @MockkBean
-    lateinit var bankAccountService: MovieInTheaterDetailsResource
-
-
+    lateinit var movieInTheaterDetailsResource: MovieInTheaterDetailsResource
 
     val movieInTheaterDetailsDto: MovieInTheaterDetailsDto   =
             MovieInTheaterDetailsDto("title",
                    "imdb" , emptyList())
     @Test
-    fun givenExistingBankAccount_whenGetRequest_thenReturnsBankAccountJsonWithStatus200() {
-        every { bankAccountService.getMovieInTheaterDetailsUseCases("tt0232500") } returns CompletableFuture.completedFuture(movieInTheaterDetailsDto)
+    fun givenExistingMovie_whenGetRequest_thenReturnsMovieDetailsWithStatus200() {
+        val imdb = "tt0232500"
+        every { movieInTheaterDetailsResource.getMovieInTheaterDetailsUseCases(imdb) } returns CompletableFuture.completedFuture(movieInTheaterDetailsDto)
 
-        println("mockMvc:"+webApplicationContext)
-        println("mockMvc:"+mockMvc)
-       val result =mockMvc.perform(get("/movie/tt0232500"))
+       val result =mockMvc.perform(get("/movie/$imdb"))
                 .andExpect(status().isOk).andReturn()
-        val content = result.getResponse().getContentAsString()
-        println("content:"+content)
-                //.andExpect(content().contentType(MediaType.APPLICATION_JSON))
-
     }
-
-
-
 }
 
