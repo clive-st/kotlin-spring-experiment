@@ -2,6 +2,7 @@ package com.github.clives.delivery.config
 
 
 import com.github.clives.dataproviders.db.jpa.repositories.*
+import com.github.clives.dataproviders.restclient.repositories.ApiKeyInterceptor
 import com.github.clives.dataproviders.restclient.repositories.RestTemplateMovieDetailsRepository
 import com.github.clives.delivery.rest.api.imp.MovieInTheaterDetailsResourceImp
 import com.github.clives.delivery.rest.api.imp.MovieReviewResourceImp
@@ -73,25 +74,6 @@ class Module {
     @Bean
     @Description("RestTemplate connection with predefined auth headers")
     fun restTemplate(): RestTemplate {
-
-        /*
-        val restTemplate = RestTemplateBuilder().errorHandler(DefaultResponseErrorHandler()).build()
-
-        val builder: OkHttpClient.Builder = Builder()
-        val okHttpConnectionPool = ConnectionPool(HTTP_MAX_IDLE, HTTP_KEEP_ALIVE,
-                TimeUnit.SECONDS)
-        builder.connectionPool(okHttpConnectionPool)
-        builder.connectTimeout(HTTP_CONNECTION_TIMEOUT, TimeUnit.SECONDS)
-        builder.retryOnConnectionFailure(false)
-
-        //Adding a ClientHttpRequestInterceptor to the RestTemplate
-        restTemplate.interceptors.add(ClientHttpRequestInterceptor { request, body, execution ->
-            request.headers["Content-Type"] = MediaType.APPLICATION_JSON_VALUE
-            //TODO check your auth data in application.yml file. It should be the result of ("Basic " + base64(login + ":" + password))
-            request.headers["Authorization"] = "jjj"
-
-            execution.execute(request, body)
-        })*/
         val restTemplate = RestTemplate();
 
         val HTTP_MAX_IDLE = 20
@@ -105,21 +87,7 @@ class Module {
         builder.connectTimeout(HTTP_CONNECTION_TIMEOUT, TimeUnit.SECONDS);
         builder.retryOnConnectionFailure(false);
 
-        class ApiKeyInterceptor(private val apiKey: String) : Interceptor {
-            override fun intercept(chain: Interceptor.Chain): Response {
-                return chain.proceed(
-                        with(chain.request()) {
-                            newBuilder().url(
-                                    url.newBuilder()
-                                            .addQueryParameter("apikey", apiKey)
-                                            .build()
-                            ).build()
-                        }
-                )
-            }
-        }
-
-        builder.addInterceptor(ApiKeyInterceptor("e4f33820"))
+        builder.addInterceptor(ApiKeyInterceptor())
 
         restTemplate.setRequestFactory(OkHttp3ClientHttpRequestFactory(builder.build()));
 
